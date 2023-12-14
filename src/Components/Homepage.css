@@ -89,3 +89,28 @@ a{
     height: 100%;
     object-fit: cover;
 }
+@media only screen and (max-width: 768px) {
+    .HPcover{
+        margin-top: 6rem;
+    }
+    .heading{
+        font-size: 2rem;
+    }
+    .subHeading{
+        font-size: 1rem;
+    }
+    .logo{
+        font-size: 1rem;
+    }
+    .logoImg{
+        width: 40px;
+        height: 40px;
+    }
+    .butt{
+        padding: 0.5rem 1rem;
+        font-size: .75rem;
+    }
+    .bottom{
+        width: 50%;
+    }
+}
