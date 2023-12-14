@@ -20,7 +20,11 @@ body {
 }
 
 .create-chat {
-  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4rem;
+  flex-direction: row;
 }
 
 .chat-item {
@@ -70,10 +74,6 @@ body {
   align-items: center;
   margin-bottom: 10px;
 }
-
-
-
-
 
 .message {
   padding: 10px;
@@ -141,7 +141,7 @@ body {
   /* display: flex; */
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
   border-radius: 20px;
   padding: 0.75rem 1rem;
   background-color: #00adb5;
@@ -203,9 +203,15 @@ a{
 }
 .burger-menu {
 
-  margin-left: 100px;
-  
-  color: #fff;
+  margin-left: 80px;
+  border-radius: 20px;
+  padding: 0.5rem .45rem;
+  /* background-color: white; */
+  border: 1px solid white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  color: #00adb5;
   display: none; 
 }
 @media only screen and (max-width: 768px) {
