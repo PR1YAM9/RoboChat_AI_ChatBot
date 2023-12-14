@@ -1,70 +1,67 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Frontend Assignment: Robo Chat
 
-## Available Scripts
+Robo Chat is a simple React-based chat application that allows users to create and manage multiple chat sessions. It features a responsive design with a sidebar for managing chats and a chat area for viewing and interacting with messages.
 
-In the project directory, you can run:
+Frontend Technology used: ReactJS, CSS and Axios
 
-### `npm start`
+Website Link: https://chat-app-topaz-rho.vercel.app/
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Explaination of API usage
 
-### `npm run build`
+Input is taken from the user by useState hook and sent to the AI model using the ai,
+ 
+```javascript
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  try {
+    const response = await axios.post(
+      'https://api-v2.longshot.ai/custom/api/generate/instruct',
+      { text: input },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer <generated token here>'
+        }
+      }
+    );
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    const generatedContent = response.data?.copies?.[0]?.content;
+    const newMessages = [...messages, { text: input, type: 'user' }, { text: generatedContent, type: 'ai' }];
+    setMessages(newMessages);
+    localStorage.setItem(`chat-${chatId}`, JSON.stringify(newMessages));
+  } catch (error) {
+    console.error('Error calling API:', error);
+  }
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  setInput('');
+};
+```
+Post method is used to send the user input, it can only be sent if the Authorization is approved we need a token(API key) for that which is generated from the Longshot ai website.
 
-### `npm run eject`
+Resoponse from the Ai is then saved and added to the Array of responses from the AI, and the input is saved in the messages array which are the user input array, Both will be displayed.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The chat is then saved locally to the corresponding chat-id, to save we use JSON format.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Input is set back to null after the response is recieved and displayed.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Documentation of Multiple chat instances
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Users can dynamically create new chat instances by entering a name and clicking the "Create New Chat" button.
+The newly created chat is added to the list of existing chats in the sidebar.
 
-## Learn More
+The sidebar displays a list of available chat instances, allowing users to easily navigate between different chats.
+Each chat item in the sidebar is clickable, enabling users to switch to the selected chat.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Users have the ability to delete individual chat instances by clicking the "Delete" button associated with each chat in the sidebar.
+Deleting a chat removes it from both the sidebar and local storage.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Chat instances and their respective messages are persisted across page reloads through the use of local storage.
+The localStorage API is employed to store and retrieve information related to chat instances.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Each chat instance is assigned a unique identifier (id) to distinguish it from others.
+The chatIds state keeps track of all active chat instances.
