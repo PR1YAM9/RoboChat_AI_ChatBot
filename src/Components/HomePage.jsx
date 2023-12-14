@@ -9,6 +9,9 @@ const HomePage = () => {
   return (
     <>
       <div className="HPcover">
+      <div className="logo">
+        <img className='logoImg' src={robo} alt="" /> ROBO <span>CHAT</span>
+      </div>
         <div className="top">
           <div className="heading">Unleash the power of <br /> <span>Conversational</span> AI</div>
           <div className="subHeading">Dive into the future of communication with Longshot Ai Chat Tech, Your gateway to seamless, intelligent conversations. <br /> Elevated user experience, automated support and solutions - All in one place</div>

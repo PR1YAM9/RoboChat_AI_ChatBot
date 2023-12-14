@@ -13,49 +13,37 @@ const Chat = ({ chatId, onDelete }) => {
     e.preventDefault();
 
     try {
-      // Call OpenAI API with input
       const response = await axios.post(
         'https://api-v2.longshot.ai/custom/api/generate/instruct',
         { text: input },
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer 57fbab915f284eb5201214afcf007242f8d9ccd8' // Replace <token> with the actual token value
+            Authorization: 'Bearer 57fbab915f284eb5201214afcf007242f8d9ccd8'
           }
         }
       );
 
-      // Extracting generated content from the API response
       const generatedContent = response.data?.copies?.[0]?.content;
-
-      // Update messages state
       const newMessages = [...messages, { text: input, type: 'user' }, { text: generatedContent, type: 'ai' }];
       setMessages(newMessages);
-
-      // Save chat history to local storage
       localStorage.setItem(`chat-${chatId}`, JSON.stringify(newMessages));
     } catch (error) {
-      // Handle error
-      console.error('Error calling OpenAI API:', error);
+      console.error('Error calling API:', error);
     }
-
-    // Clear input
     setInput('');
   };
 
   useEffect(() => {
-    // Fetch chat history from local storage
     const storedMessages = JSON.parse(localStorage.getItem(`chat-${chatId}`)) || [];
     setMessages(storedMessages);
   }, [chatId]);
 
   useEffect(() => {
-    // Save chat history to local storage
     localStorage.setItem(`chat-${chatId}`, JSON.stringify(messages));
   }, [messages, chatId]);
 
   useEffect(() => {
-    // Cleanup when the component unmounts or when a new chat is selected
     return () => {
       localStorage.removeItem(`chat-${chatId}`);
     };
@@ -80,6 +68,7 @@ const Chat = ({ chatId, onDelete }) => {
             value={input}
             onChange={handleInputChange}
             className="message-input"
+            placeholder="Type a message..."
           />
           <button
             type="submit"
