@@ -1,18 +1,18 @@
 
-# Frontend Assignment: Robo Chat
+# Robo Chat
 
 Robo Chat is a simple React-based chat application that allows users to create and manage multiple chat sessions. It features a responsive design with a sidebar for managing chats and a chat area for viewing and interacting with messages.
 
-Frontend Technology used: ReactJS, CSS and Axios
+Frontend Technology used: ReactJS, CSS, and Axios
 
 Website Link: https://chat-app-topaz-rho.vercel.app/
 
 
 
 
-## Explaination of API usage
+## Explanation of API usage
 
-Input is taken from the user by useState hook and sent to the AI model using the ai,
+Input is taken from the user by useState hook and sent to the AI model using the AI,
  
 ```javascript
 const handleSubmit = async (e) => {
@@ -41,13 +41,13 @@ const handleSubmit = async (e) => {
   setInput('');
 };
 ```
-Post method is used to send the user input, it can only be sent if the Authorization is approved we need a token(API key) for that which is generated from the Longshot ai website.
+The post method is used to send the user input, it can only be sent if the Authorization is approved we need a token(API key) for that which is generated from the Longshot ai website.
 
-Resoponse from the Ai is then saved and added to the Array of responses from the AI, and the input is saved in the messages array which are the user input array, Both will be displayed.
+Response from the AI is then saved and added to the Array of responses from the AI, and the input is saved in the messages array which is the user input array, Both will be displayed.
 
 The chat is then saved locally to the corresponding chat-id, to save we use JSON format.
 
-Input is set back to null after the response is recieved and displayed.
+Input is set back to null after the response is received and displayed.
 
 ## Documentation of Multiple chat instances
 
