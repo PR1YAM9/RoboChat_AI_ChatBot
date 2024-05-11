@@ -16,30 +16,29 @@ Input is taken from the user by useState hook and sent to the AI model using the
  
 ```javascript
 const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const response = await axios.post(
-      'https://api-v2.longshot.ai/custom/api/generate/instruct',
-      { text: input },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer <generated token here>'
+    try {
+      const response = await axios.post(
+        'https://api-v2.longshot.ai/custom/api/generate/instruct',
+        { text: input },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer 57fbab915f284eb5201214afcf007242f8d9ccd8'
+          }
         }
-      }
-    );
+      );
 
-    const generatedContent = response.data?.copies?.[0]?.content;
-    const newMessages = [...messages, { text: input, type: 'user' }, { text: generatedContent, type: 'ai' }];
-    setMessages(newMessages);
-    localStorage.setItem(`chat-${chatId}`, JSON.stringify(newMessages));
-  } catch (error) {
-    console.error('Error calling API:', error);
-  }
-
-  setInput('');
-};
+      const generatedContent = response.data?.copies?.[0]?.content;
+      const newMessages = [...messages, { text: input, type: 'user' }, { text: generatedContent, type: 'ai' }];
+      setMessages(newMessages);
+      localStorage.setItem(`chat-${chatId}`, JSON.stringify(newMessages));
+    } catch (error) {
+      console.error('Error calling API:', error);
+    }
+    setInput('');
+  };
 ```
 The post method is used to send the user input, it can only be sent if the Authorization is approved we need a token(API key) for that which is generated from the Longshot ai website.
 
