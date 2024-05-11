@@ -25,7 +25,7 @@ const handleSubmit = async (e) => {
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer 57fbab915f284eb5201214afcf007242f8d9ccd8'
+            Authorization: 'Bearer '
           }
         }
       );
